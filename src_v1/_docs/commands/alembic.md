@@ -11,6 +11,7 @@ This guide outlines common Alembic commands for managing database migrations.
 
 - **Create initial migration:**
     ```bash
+    alembic -n devdb revsion --autogenerate -m "initial"
     alembic revision --autogenerate -m "initial"
     ```
 
