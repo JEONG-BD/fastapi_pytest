@@ -1,5 +1,8 @@
 version: '3.10'
 
+networks:
+  dev-network:
+    driver: bridge
 
 services:
   dev-db:
@@ -11,31 +14,34 @@ services:
       - env/.env.dev
     volumes:
       - ./scripts:/docker-entrypoint-initdb.d
-
-
-#    environment:
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: postgres
-#      POSTGRES_DB: inventory
-  dev-test :
-    image: postgres:16.1-alpine3.19
-    restart: always
-    ports:
-      - "5434:5432"
-    env_file:
-      - env/.env.test
-    volumes:
-      - ./scripts:/docker-entrypoint-initdb.d
-
-#    environment:
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: postgres
-#      POSTGRES_DB: inventory2
+    networks:
+      - dev-network
   admier :
     image: adminer
     restart: always
     ports:
       - "8080:8080"
+    networks:
+      - dev-network
+
+  #    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_DB: inventory
+#  dev-test :
+#    image: postgres:16.1-alpine3.19
+#    restart: always
+#    ports:
+#      - "5434:5432"
+#    env_file:
+#      - env/.env.test
+#    volumes:
+#      - ./scripts:/docker-entrypoint-initdb.d
+
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_DB: inventory2
 
 name: fastapi-tdd
 
