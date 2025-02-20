@@ -2,8 +2,6 @@ import os
 
 
 def test_true():
-
-
     assert True
 
 
