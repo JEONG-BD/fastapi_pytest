@@ -6,15 +6,25 @@ from alembic import context
 from app import models
 config = context.config
 
-if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+url_db1 = os.environ.get("DEV_DATABASE_URL")
+url_db2 = os.environ.get("TEST_DATABASE_URL")
+# print(url_db1, url_db2)
+# if config.config_file_name is not None:
+#     fileConfig(config.config_file_name)
+# print("*"*20)
+# if os.environ.get("DEV_DATABASE_URL") is not None:
+#     config.set_section_option("devdb", "sqlalchemy.url", os.environ.get("DEV_DATABASE_URL"))
+# print("*"*20)
+# if os.environ.get("TEST_DATABASE_URL") is not None:
+#     config.set_section_option("devtest", "sqlalchemy.url", os.environ.get("TEST_DATABASE_URL"))
+# print("*"*20)
 
-if os.environ.get("DEV_DATABASE_URL") is not None:
-    config.set_section_option("devdb", "sqlalchemy.url", os.environ.get("DEV_DATABASE_URL"))
 
-if os.environ.get("TEST_DATABASE_URL") is not None:
-    config.set_section_option("devtest", "sqlalchemy.url", os.environ.get("TEST_DATABASE_URL"))
-
+# Modify the database URLs in the Alembic config
+config.set_section_option("devdb", "sqlalchemy.url", url_db1)
+config.set_section_option(
+    "devtest", "sqlalchemy.url", os.environ.get("TEST_DATABASE_URL")
+)
 
 target_metadata = models.Base.metadata
 
