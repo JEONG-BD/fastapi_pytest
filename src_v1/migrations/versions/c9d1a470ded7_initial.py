@@ -1,8 +1,8 @@
 """initial
 
-Revision ID: ca1491c10fac
+Revision ID: c9d1a470ded7
 Revises: 
-Create Date: 2025-02-24 13:12:43.363130
+Create Date: 2025-02-24 14:24:42.907750
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'ca1491c10fac'
+revision: str = 'c9d1a470ded7'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -24,9 +24,11 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('slug', sa.String(length=100), nullable=False),
-    sa.Column('is_activate', sa.Boolean(), nullable=False),
-    sa.Column('level', sa.Integer(), nullable=False),
+    sa.Column('is_activate', sa.Boolean(), server_default='False', nullable=False),
+    sa.Column('level', sa.Integer(), server_default='100', nullable=False),
     sa.Column('parent_id', sa.Integer(), nullable=True),
+    sa.CheckConstraint('LENGTH(name) > 0', name='name_length_check'),
+    sa.CheckConstraint('LENGTH(slug) > 0', name='slug_length_check'),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
