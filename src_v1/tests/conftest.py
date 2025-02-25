@@ -1,2 +1,2 @@
 from .fixtures import db_session
-print("test")
+from .utils.pytest_utils import pytest_collection_modifyitems

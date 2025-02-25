@@ -1,4 +1,5 @@
 from sqlalchemy import Integer, Boolean, String
+import pytest
 
 
 def test_model_structure_table_exists(db_inspector):
@@ -7,7 +8,7 @@ def test_model_structure_table_exists(db_inspector):
 
 def test_model_structure_column_data_types(db_inspector):
     table = "category"
-    columns = {columns['name'] : columns for  columns in db_inspector.get_columns(table)}
+    columns = {columns['name']: columns for columns in db_inspector.get_columns(table)}
     print(columns)
 
     assert isinstance(columns['id']['type'], Integer)
@@ -62,4 +63,12 @@ def test_model_structure_column_length(db_inspector):
 
     assert columns['name']['type'].length == 100
     assert columns['slug']['type'].length == 100
+
+
+def test_model_unique_constraints(db_inspector):
+    table = 'category'
+    constraints = db_inspector.get_unique_constraints(table)
+
+    assert any(constraint['name'] == 'uq_category_name_level' for constraint in constraints)
+    assert any(constraint['name'] == 'uq_category_slug' for constraint in constraints)
 
