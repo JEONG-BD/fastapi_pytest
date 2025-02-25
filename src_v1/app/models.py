@@ -149,3 +149,20 @@ class ProductImage(Base):
             "order", "product_line_id", name="uq_product_image_order_product_line_id"
         ),
     )
+
+
+class Attribute(Base):
+    __tablename__ = "attribute"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String(100), nullable=False)
+    description = Column(String(100), nullable=True)
+
+    __table_args__ = (
+        CheckConstraint(
+            "LENGTH(name) > 0",
+            name="attribute_name_length_check",
+        ),
+        UniqueConstraint("name", name="uq_attribute_name"),
+    )
+
