@@ -1,11 +1,16 @@
 from fastapi import FastAPI
+from app.routers.category_router import router as cate_router
+
 import logging.config
+
 #logging.basicConfig(level=logging.DEBUG)
 
 logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
+app.include_router(cate_router, prefix='/api')
+#
 
 
 @app.get('/')

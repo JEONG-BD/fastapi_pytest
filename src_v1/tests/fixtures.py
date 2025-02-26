@@ -10,7 +10,6 @@ from main import app
 
 @pytest.fixture(scope="session")
 def db_session():
-    print("1=========")
     container = start_database_container()
 
     engine = create_engine(os.getenv("TEST_DATABASE_URL"))

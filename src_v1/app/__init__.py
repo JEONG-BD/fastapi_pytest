@@ -3,7 +3,8 @@ import os
 
 # one
 load_dotenv()
-
+print(os.environ)
+print(load_dotenv())
 # multi
 # dotenv_files = [
 #     os.path.join('env', '.env.dev'),

@@ -16,10 +16,13 @@ class CategoryBase(BaseModel):
     parent_id: Optional[int] = None
 
 
-
 class CategoryCreate(CategoryBase):
     pass
 
 
 class CategoryInDB(CategoryBase):
+    id: int
+
+
+class CategoryReturn(CategoryBase):
     id: int
