@@ -4,6 +4,8 @@ from sqlalchemy import create_engine
 from tests.utils.docker_utils import start_database_container
 from tests.utils.database_utils import migrate_to_db
 from sqlalchemy.orm import sessionmaker
+from fastapi.testclient import  TestClient
+from main import app
 
 
 @pytest.fixture(scope="session")
@@ -22,5 +24,13 @@ def db_session():
 
     # container.stop()
     # container.remove()
-    # engine.dispose()gb
+    # engine.dispose()
 
+
+@pytest.fixture(scope="function")
+def client():
+    with TestClient(app) as _client:
+        yield _client
+    # container.stop()
+    # container.remove()
+    # engine.dispose()gb
